@@ -1,5 +1,6 @@
 #include <string>
 #include "string_calculator.cpp"
+#include string_calculator.h
 #include <gtest/gtest.h>
 
 TEST(TestStringCalculator, EmptyStringReturnsZero) {
