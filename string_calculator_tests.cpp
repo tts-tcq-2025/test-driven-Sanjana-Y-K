@@ -1,3 +1,4 @@
+#include <string>
 #include "string_calculator.cpp"
 #include <gtest/gtest.h>
 
