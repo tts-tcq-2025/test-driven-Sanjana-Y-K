@@ -1,5 +1,6 @@
-#include <gtest/gtest.h>
 #include "string_calculator.cpp"
+#include <gtest/gtest.h>
+
 TEST(TestStringCalculator, EmptyStringReturnsZero) {
     // Arrange
     std::string input = "";
