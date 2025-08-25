@@ -1,6 +1,7 @@
 #include "./string_calculator.h"
 #include <cassert>
 #include <iostream>
+#include <string>
 
 void TestEmptyStringReturnsZero() {
     StringCalculator calc;
