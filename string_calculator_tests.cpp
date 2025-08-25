@@ -1,4 +1,4 @@
-#include "string_calculator.h"
+#include "./string_calculator.h"
 #include <cassert>
 #include <iostream>
 
@@ -36,7 +36,7 @@ void TestNegativeNumbersThrowException() {
     StringCalculator calc;
     try {
         calc.Add("1,-2,-3");
-        assert(false); // Should not reach here
+        assert(false); 
     } catch (const NegativeNumberException& e) {
         std::string expected = "negatives not allowed: -2, -3";
         assert(std::string(e.what()) == expected);
