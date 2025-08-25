@@ -1,5 +1,5 @@
-#ifndef STRING_CALCULATOR_H
-#define STRING_CALCULATOR_H
+#ifndef STRING_CALCULATOR_H_
+#define STRING_CALCULATOR_H_
 
 #include <string>
 #include <vector>
