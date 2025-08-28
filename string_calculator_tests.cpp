@@ -50,5 +50,6 @@ TEST(StringCalculatorTest, IgnoreNumbersGreaterThan1000) {
 
 TEST(StringCalculatorTest, DelimitersOfAnyLength) {
     StringCalculator calc;
-    EXPECT_EQ(calc.Add("//\\*\\*\\*\\n12***3"), 15); // 12 + 3
+    EXPECT_EQ(calc.Add("//[***]\n12***3"), 15);       
+        
 }
