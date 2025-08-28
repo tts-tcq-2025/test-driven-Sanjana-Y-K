@@ -1,71 +1,54 @@
-#include "./string_calculator.h"
-#include <cassert>
-#include <iostream>
-#include <string>
+#include "string_calculator.h"
+#include <gtest/gtest.h>
 
-void TestEmptyStringReturnsZero() {
+TEST(StringCalculatorTest, EmptyInput) {
     StringCalculator calc;
-    assert(calc.Add("") == 0);
+    EXPECT_EQ(calc.Add(""), 0);
 }
 
-void TestSingleNumberReturnsItself() {
+TEST(StringCalculatorTest, SingleNumber) {
     StringCalculator calc;
-    assert(calc.Add("1") == 1);
+    EXPECT_EQ(calc.Add("1"), 1);
 }
 
-void TestTwoNumbersCommaSeparated() {
+TEST(StringCalculatorTest, TwoNumbers) {
     StringCalculator calc;
-    assert(calc.Add("1,2") == 3);
+    EXPECT_EQ(calc.Add("1,2"), 3);
 }
 
-void TestUnknownAmountOfNumbers() {
+TEST(StringCalculatorTest, UnknownAmountOfNumbers) {
     StringCalculator calc;
-    assert(calc.Add("1,2,3,4,5") == 15);
+    EXPECT_EQ(calc.Add("1,2,3,4,5"), 15);
 }
 
-void TestNewLineDelimiter() {
+TEST(StringCalculatorTest, NewLineDelimited) {
     StringCalculator calc;
-    assert(calc.Add("1\n2,3") == 6);
+    EXPECT_EQ(calc.Add("1\n2,3"), 6);
 }
 
-void TestCustomSingleCharDelimiter() {
+TEST(StringCalculatorTest, CustomDelimiter) {
     StringCalculator calc;
-    assert(calc.Add("//;\n1;2") == 3);
+    EXPECT_EQ(calc.Add("//;\n1;2"), 3);
 }
 
-void TestNegativeNumbersThrowException() {
+TEST(StringCalculatorTest, ThrowsOnNegatives) {
     StringCalculator calc;
-    try {
-        calc.Add("1,-2,-3");
-        assert(false); 
-    } catch (const NegativeNumberException& e) {
-        std::string expected = "negatives not allowed: -2, -3";
-        assert(std::string(e.what()) == expected);
-    }
+    EXPECT_THROW({
+        try {
+            calc.Add("1,-2,-3");
+        } catch (const std::invalid_argument& e) {
+            EXPECT_STREQ(e.what(), "negatives not allowed: -2, -3");
+            throw;
+        }
+    }, std::invalid_argument);
 }
 
-void TestIgnoreNumbersGreaterThan1000() {
+TEST(StringCalculatorTest, IgnoreNumbersGreaterThan1000) {
     StringCalculator calc;
-    assert(calc.Add("2,1001") == 2);
+    EXPECT_EQ(calc.Add("2,1001"), 2);
 }
 
-void TestDelimitersOfAnyLength() {
+TEST(StringCalculatorTest, DelimitersOfAnyLength) {
     StringCalculator calc;
-
-    assert(calc.Add("//[***]\n12***3") == 15);
-}
-
-int main() {
-    TestEmptyStringReturnsZero();
-    TestSingleNumberReturnsItself();
-    TestTwoNumbersCommaSeparated();
-    TestUnknownAmountOfNumbers();
-    TestNewLineDelimiter();
-    TestCustomSingleCharDelimiter();
-    TestNegativeNumbersThrowException();
-    TestIgnoreNumbersGreaterThan1000();
-    TestDelimitersOfAnyLength();
-
-    std::cout << "All tests passed!\n";
-    return 0;
+    EXPECT_EQ(calc.Add("//\\*\\*\\*\\n12***3"), 15); // 12 + 3
 }
