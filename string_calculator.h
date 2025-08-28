@@ -1,32 +1,18 @@
-#ifndef STRING_CALCULATOR_H_
-#define STRING_CALCULATOR_H_
+#ifndef STRING_CALCULATOR_H
+#define STRING_CALCULATOR_H
 
-#include <exception>
 #include <string>
 #include <vector>
 
-class NegativeNumberException : public std::exception {
- public:
-  explicit NegativeNumberException(const std::vector<int>& negatives);
-  const char* what() const noexcept override;
-
- private:
-  std::string message_;
-};
-
 class StringCalculator {
- public:
-  int Add(const std::string& input);
+public:
+    int Add(const std::string& numbers);
 
- private:
-  std::vector<std::string> ParseDelimiters(const std::string& input, std::string& numbers_part);
-  std::vector<std::string> ParseSingleCharDelimiter(const std::string& delimiter_part);
-  std::vector<std::string> ParseMultiCharDelimiters(const std::string& delimiter_part);
-  std::vector<int> ExtractNumbers(const std::string& numbers_str,
-                                  const std::vector<std::string>& delimiters);
-  std::vector<std::string> SplitNumbers(const std::string& input,
-                                        const std::vector<std::string>& delimiters);
-  int SumNumbers(const std::vector<int>& numbers);
+private:
+    std::string ExtractDelimiter(std::string& numbers);
+    std::vector<std::string> Split(const std::string& input, const std::string& delimiter);
+    std::vector<int> ParseNumbers(const std::string& numbers, const std::string& delimiter);
+    void CheckNegatives(const std::vector<int>& nums);
 };
 
-#endif  // STRING_CALCULATOR_H_
+#endif  // STRING_CALCULATOR_H
